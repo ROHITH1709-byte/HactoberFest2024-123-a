@@ -5,46 +5,36 @@ def findMaxSubCubeSum(matrix, M, N, O):
     # Iterate over the first dimension of the 3D array
     for i in range(M):
         # Initialize a 2D temporary array to store intermediate sums
-        temp = [[0] * N for _ in range(N)]
+        temp = [[0] * O for _ in range(N)]
 
         # Iterate over the first dimension again
         for j in range(i, M):
-            # Iterate over the second and third dimensions
+            # Update the temp array with the current 2D slice
             for k in range(N):
                 for l in range(O):
-                    # Add the current element to the temporary array
                     temp[k][l] += matrix[j][k][l]
 
-            # Iterate over the second dimension
+            # Now we will apply Kadane's algorithm on the 2D temp array
             for k in range(N):
-                # Initialize another temporary array to store intermediate sums
-                innerTemp = [0] * O
-                kadane2 = [0] * O
-
-                # Iterate over the second dimension again
+                # This will hold the sum of columns
+                kadane_array = [0] * O
+                
                 for l in range(k, N):
-                    # Iterate over the third dimension
+                    # Add the current row to the kadane_array
                     for m in range(O):
-                        # Add the current element to the inner temporary array
-                        innerTemp[m] += temp[l][m]
+                        kadane_array[m] += temp[l][m]
 
-                    # Copy the inner temporary array to another array
-                    kadane2 = innerTemp[:]
+                    # Apply 1D Kadane's algorithm on the kadane_array
+                    current_sum = 0
+                    for value in kadane_array:
+                        current_sum += value
+                        if current_sum > maxSum:
+                            maxSum = current_sum
+                        if current_sum < 0:
+                            current_sum = 0
 
-                    for m in range(O):
-                        # If not the first element, add the previous element to the current element
-                        if m > 0:
-                            kadane2[m] += kadane2[m - 1]
-                        # If the current element is greater than the maximum sum, update the maximum sum
-                        if kadane2[m] > maxSum:
-                            maxSum = kadane2[m]
-                        # If the current element is less than 0, set it to 0
-                        if kadane2[m] < 0:
-                            kadane2[m] = 0
-
-    # Return the maximum sum
+    # Return the maximum sum found
     return maxSum
-
 
 # Example inputs
 M = 3
@@ -61,4 +51,3 @@ result = findMaxSubCubeSum(matrix, M, N, O)
 
 # Output the result
 print("The maximum sum of a sub-cube in the 3D array is:", result)
-# This code is contributed by Rupesh Kumar(kumarrupesh2310)
