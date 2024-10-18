@@ -1,4 +1,4 @@
-public class PowerUsingLoop {
+ public class PowerUsingLoop {
     public static void main(String[] args) {
         int base = 2;
         int exponent = 3; // You can change this to test negative values
