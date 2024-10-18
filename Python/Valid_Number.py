@@ -1,5 +1,8 @@
 class Solution:
     def isNumber(self, s: str) -> bool:
+        # Trim whitespace from the string
+        s = s.strip()
+        
         # Define state transitions for the finite state machine
         transitions = {
             'Start': {'digit': 'Integer', 'sign': 'Sign', 'dot': 'Dot'},
