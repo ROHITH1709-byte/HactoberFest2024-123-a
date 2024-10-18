@@ -1,75 +1,33 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h> // Include stdlib for malloc and free
 
-void printSolution(int N, int board[N][N]) {
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++)
-            printf("%2d ", board[i][j]);
-        printf("\n");
-    }
-}
-
-bool isSafe(int N, int board[N][N], int row, int col) {
-    // Check this row on the left side
-    for (int i = 0; i < col; i++)
-        if (board[row][i])
-            return false;
-
-    // Check upper diagonal on the left side
-    for (int i = row, j = col; i >= 0 && j >= 0; i--, j--)
-        if (board[i][j])
-            return false;
-
-    // Check lower diagonal on the left side
-    for (int i = row, j = col; i < N && j >= 0; i++, j--)
-        if (board[i][j])
-            return false;
-
-    return true;
-}
-
-bool solveNQueensUtil(int N, int board[N][N], int col) {
-    if (col >= N)
-        return true;
-
-    for (int i = 0; i < N; i++) {
-        if (isSafe(N, board, i, col)) {
-            board[i][col] = 1;
-
-            if (solveNQueensUtil(N, board, col + 1))
-                return true;
-
-            board[i][col] = 0; // Backtrack
-        }
+void reverseArrayExtraArray(int arr[], int size) {
+    // Allocate memory for the reversed array
+    int* reversedArr = (int*)malloc(size * sizeof(int)); // Dynamically allocate memory
+    if (reversedArr == NULL) {
+        printf("Memory allocation failed!\n");
+        return;
     }
 
-    return false;
-}
-
-bool solveNQueens(int N) {
-    int board[N][N];
-
-    for (int i = 0; i < N; i++)
-        for (int j = 0; j < N; j++)
-            board[i][j] = 0;
-
-    if (!solveNQueensUtil(N, board, 0)) {
-        printf("Solution does not exist.\n");
-        return false;
+    for (int i = 0; i < size; i++) {
+        reversedArr[i] = arr[size - i - 1]; // Reverse the elements
     }
 
-    printf("Solution for %d-Queens problem:\n", N);
-    printSolution(N, board);
-    return true;
+    // Print reversed array
+    printf("Reversed Array: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", reversedArr[i]); // Print each element
+    }
+    printf("\n"); // New line for better output formatting
+
+    free(reversedArr); // Free the allocated memory
 }
 
 int main() {
-    int N;
+    int originalArr[] = { 1, 2, 3, 4, 5 };
+    int size = sizeof(originalArr) / sizeof(originalArr[0]);
 
-    printf("Enter the value of N: ");
-    scanf("%d", &N);
+    reverseArrayExtraArray(originalArr, size); // Call the function
 
-    solveNQueens(N);
-
-    return 0;
+    return 0; // Indicate successful completion
 }
