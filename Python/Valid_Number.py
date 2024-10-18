@@ -65,3 +65,5 @@ print(solution.isNumber("-.5e2"))   # Output: True
 print(solution.isNumber("+-5"))     # Output: False
 print(solution.isNumber("12e"))      # Output: False
 print(solution.isNumber("1.2.3"))   # Output: False
+print(solution.isNumber(" 3.14 "))  # Output: True
+print(solution.isNumber("-.5e2"))   # Output: True
