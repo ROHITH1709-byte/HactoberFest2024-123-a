@@ -23,12 +23,13 @@ def merge_sort(arr):
                 j += 1
             k += 1
         
-        # Checking if any element was left
+        # Checking if any element was left in left_half
         while i < len(left_half):
             arr[k] = left_half[i]
             i += 1
             k += 1
         
+        # Checking if any element was left in right_half
         while j < len(right_half):
             arr[k] = right_half[j]
             j += 1
