@@ -10,3 +10,4 @@ def scoreOfString(s):
 # Example usage
 s = "abc"
 print("Score of the string:", scoreOfString(s))  # Output: 2
+
